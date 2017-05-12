@@ -40,6 +40,20 @@ class PorterStemmer(WordStemmer):
         return self.stemmer.stem(word)
 
 
+class SnowballStemmer(WordStemmer):
+    """
+    Uses NLTK's SnowballStemmer to stem words.
+    """
+    def __init__(self):
+        from nltk.stem import SnowballStemmer as NltkSnowballStemmer
+        self.stemmer = NltkSnowballStemmer("english")
+
+    @overrides
+    def stem_word(self, word: str) -> str:
+        return self.stemmer.stem(word)
+
+
 word_stemmers = OrderedDict()  # pylint: disable=invalid-name
 word_stemmers['pass_through'] = PassThroughWordStemmer
 word_stemmers['porter'] = PorterStemmer
+word_stemmers['snowball'] = SnowballStemmer
